@@ -22,3 +22,9 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Correr con docker
+```
+docker build -t mod4 .
+docker run -it --rm -v ${pwd}:/app -p 8080:8080 --workdir /app .
+```

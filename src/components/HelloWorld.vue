@@ -1,41 +1,62 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+    <div id="inputs">
+      <h2>Ingresar ahorro y sueldo</h2>
+      <span>Ahorro: </span><input id="ahorro-input" v-model="ahorro" placeholder="Ingresar ahorro" />
+      <br /><br />
+      <span>Sueldo: </span><input id="sueldo-input" v-model="sueldo" placeholder="Ingresar sueldo" />
+    </div>
+    <div id="calculador">
+      <h2>Calcular 10%, Impuesto y Saldo Restante</h2>
+      <button v-on:click="getDxc">Calcular</button>
+      <p>Su 10% es: <b id="dxc">{{ diezPorCiento }}</b></p>
+      <p>Su impuesto es: <b id="impuesto">{{ impuesto }}</b></p>
+      <p>Su saldo restante es: <b id=saldo-restante>{{ saldoRestante }}</b></p>
+      <br /><br />
+      <p>Ahorro consultado: <b id="ahorro-consultado">{{ ahorroConsultado }}</b></p>
+      <p>Sueldo consultado: <b id="sueldo-consultado">{{ sueldoConsultado }}</b></p>
+    </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  data() {
+    return {
+      loading: true,
+      ahorro: null,
+      sueldo: null,
+      diezPorCiento: "-",
+      impuesto: "-",
+      saldoRestante: "-",
+      ahorroConsultado: "-",
+      sueldoConsultado: "-",
+    }
+  },
+  methods: {
+    getDxc: function () {
+      console.log("ahorro: ", this.ahorro)
+      console.log("sueldo: ", this.sueldo)
+      var request = "localhost:8080/rest/msdxc/dxc?sueldo=" + this.sueldo + "&ahorro=" + this.ahorro
+      console.log("url: ", request)
+
+      axios
+      .get('https://api.coindesk.com/v1/bpi/currentprice.json')
+      .then(response => {
+        this.diezPorCiento = response.dxc 
+        this.impuesto = response.impuesto
+        this.saldoRestante = response.saldo
+        this.ahorroConsultado = response.ahorro
+        this.sueldoConsultado = response.sueldoConsultado
+      })
+    }
   }
+
 }
 </script>
 
