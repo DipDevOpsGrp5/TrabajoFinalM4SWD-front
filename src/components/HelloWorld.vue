@@ -13,6 +13,7 @@
       <p>Su impuesto es: <b id="impuesto">{{ impuesto }}</b></p>
       <p>Su saldo restante es: <b id=saldo-restante>{{ saldoRestante }}</b></p>
       <br /><br />
+      <p>Valor UF: </p> <b id="valor-uf">{{ valorUf }}</b>
       <p>Ahorro consultado: <b id="ahorro-consultado">{{ ahorroConsultado }}</b></p>
       <p>Sueldo consultado: <b id="sueldo-consultado">{{ sueldoConsultado }}</b></p>
     </div>
@@ -36,6 +37,7 @@ export default {
       saldoRestante: "-",
       ahorroConsultado: "-",
       sueldoConsultado: "-",
+      valorUf: "-"
     }
   },
   methods: {
@@ -46,13 +48,14 @@ export default {
       console.log("url: ", request)
 
       axios
-      .get('https://api.coindesk.com/v1/bpi/currentprice.json')
+      .get(request)
       .then(response => {
         this.diezPorCiento = response.dxc 
         this.impuesto = response.impuesto
         this.saldoRestante = response.saldo
         this.ahorroConsultado = response.ahorro
         this.sueldoConsultado = response.sueldoConsultado
+        this.valorUf = response.uf
       })
     }
   }
