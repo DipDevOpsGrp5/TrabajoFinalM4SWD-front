@@ -13,7 +13,7 @@
       <p>Su impuesto es: <b id="impuesto">{{ impuesto }}</b></p>
       <p>Su saldo restante es: <b id=saldo-restante>{{ saldoRestante }}</b></p>
       <br /><br />
-      <p>Valor UF: </p> <b id="valor-uf">{{ valorUf }}</b>
+      <p>Valor UF: <b id="valor-uf">{{ valorUf }}</b></p>
       <p>Ahorro consultado: <b id="ahorro-consultado">{{ ahorroConsultado }}</b></p>
       <p>Sueldo consultado: <b id="sueldo-consultado">{{ sueldoConsultado }}</b></p>
     </div>
@@ -50,12 +50,14 @@ export default {
       axios
       .get(request)
       .then(response => {
-        this.diezPorCiento = response.dxc 
-        this.impuesto = response.impuesto
-        this.saldoRestante = response.saldo
-        this.ahorroConsultado = response.ahorro
-        this.sueldoConsultado = response.sueldo
-        this.valorUf = response.uf
+        this.diezPorCiento = response.data.dxc 
+        this.impuesto = response.data.impuesto
+        this.saldoRestante = response.data.saldo
+        this.ahorroConsultado = response.data.ahorro
+        this.sueldoConsultado = response.data.sueldo
+        this.valorUf = response.data.uf
+        console.log(response)
+        console.log(response.data)
       })
     }
   }
