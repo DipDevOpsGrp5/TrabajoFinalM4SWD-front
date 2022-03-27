@@ -44,7 +44,7 @@ export default {
     getDxc: function () {
       console.log("ahorro: ", this.ahorro)
       console.log("sueldo: ", this.sueldo)
-      var request = "localhost:8080/rest/msdxc/dxc?sueldo=" + this.sueldo + "&ahorro=" + this.ahorro
+      var request = "http://localhost:8080/rest/msdxc/dxc?sueldo=" + this.sueldo + "&ahorro=" + this.ahorro
       console.log("url: ", request)
 
       axios
