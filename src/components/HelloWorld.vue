@@ -54,7 +54,7 @@ export default {
         this.impuesto = response.impuesto
         this.saldoRestante = response.saldo
         this.ahorroConsultado = response.ahorro
-        this.sueldoConsultado = response.sueldoConsultado
+        this.sueldoConsultado = response.sueldo
         this.valorUf = response.uf
       })
     }
