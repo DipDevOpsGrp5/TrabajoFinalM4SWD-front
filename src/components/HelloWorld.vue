@@ -5,6 +5,7 @@
       <span>Ahorro: </span><input id="ahorro-input" v-model="ahorro" placeholder="Ingresar ahorro" />
       <br /><br />
       <span>Sueldo: </span><input id="sueldo-input" v-model="sueldo" placeholder="Ingresar sueldo" />
+      <p style="color:red;">{{ mensajeError }}</p>
     </div>
     <div id="calculador">
       <h2>Calcular 10%, Impuesto y Saldo Restante</h2>
@@ -30,14 +31,15 @@ export default {
   data() {
     return {
       loading: true,
-      ahorro: null,
-      sueldo: null,
+      ahorro: 0,
+      sueldo: 0,
       diezPorCiento: "-",
       impuesto: "-",
       saldoRestante: "-",
       ahorroConsultado: "-",
       sueldoConsultado: "-",
-      valorUf: "-"
+      valorUf: "-",
+      mensajeError: "",
     }
   },
   methods: {
@@ -56,8 +58,13 @@ export default {
         this.ahorroConsultado = response.data.ahorro
         this.sueldoConsultado = response.data.sueldo
         this.valorUf = response.data.uf
+        this.mensajeError = ""
         console.log(response)
         console.log(response.data)
+      })
+      .catch(error => {
+        console.log(error.response)
+        this.mensajeError = "Error (" + error.response.status + "): " + error.response.data.message
       })
     }
   }
