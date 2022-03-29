@@ -1,18 +1,17 @@
 # mod4-front
 
+Para la ejecución de este proyecto se puede hacer de las siguientes formas:
+
 ## Correr local
 ```
-# yarn
+# Con yarn
 yarn install
 yarn serve --port 3000
 
-# npm
+# Con npm
 npm install
 npm run serve -- --port 3000
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### Correr con docker
 ```
